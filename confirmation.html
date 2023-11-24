@@ -1,0 +1,105 @@
+<!-- confirmation.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <style>
+        /* Styles for the payment confirmation page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ff5a5f;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: welcomeAnimation 1.5s ease-in-out; /* Apply animation */
+        }
+
+        @keyframes welcomeAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .payment-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+        }
+
+        #back-btn {
+            background-color: #ff5a5f;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Update the background color of the button */
+        button {
+            background-color: #ff5a5f; /* Change this to the desired color */
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button id="back-btn" onclick="goBack()">Back</button>
+        <h1>Payment Confirmation</h1>
+    </header>
+    <section>
+        <div class="payment-container">
+            <p>Your payment has been successfully processed</p>
+            <!-- Display additional confirmation details -->
+            <button onclick="returnToHomepage()">Return to Homepage</button>
+        </div>
+    </section>
+    <!-- JavaScript for confirmation functionality -->
+    <script>
+        function goBack() {
+            window.location.href = 'paypal-login.html';
+        }
+
+        function returnToHomepage() {
+            window.location.href = 'homepage.html'; // Redirect to homepage.html
+        }
+    </script>
+</body>
+</html>

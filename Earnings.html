@@ -1,0 +1,136 @@
+<!-- Earnings.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb - Earnings</title>
+    <style>
+        /* Styles for the Earnings page */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f0f0f0; /* Updated background color */
+            color: #333; /* Dark text color */
+        }
+
+        header {
+            background-color: #ff5a5f; /* Green header background */
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Additional styles for the Earnings page */
+        #earnings-container {
+            display: flex;
+            justify-content: center; /* Center images horizontally */
+            align-items: center; /* Center images vertically */
+            flex-wrap: wrap; /* Allow images to wrap to the next line if necessary */
+            gap: 20px; /* Add some spacing between images */
+            margin-top: 20px; /* Add margin at the top */
+        }
+
+        .earning-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px; /* Slightly rounded borders */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            transition: transform 0.3s; /* Add a smooth transition effect on hover */
+        }
+
+        .earning-image:hover {
+            transform: scale(1.05); /* Scale the image on hover for a subtle effect */
+        }
+
+        #back-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Earnings</h1>
+        <p>Explore your earnings insights.</p>
+    </header>
+
+    <!-- Navigation Bar for Earnings Page -->
+    <nav>
+        <a href="#" onclick="showEarnings()">Earnings</a>
+        <!-- Add other navigation links if needed -->
+    </nav>
+
+    <section>
+        <!-- Content for the Earnings page -->
+        <div id="earnings-container"></div>
+        <button id="back-btn" onclick="goBack()">Back</button>
+    </section>
+
+    
+
+    <!-- JavaScript for Earnings page functionality -->
+    <script>
+        function showEarnings() {
+            var earningsContainer = document.getElementById('earnings-container');
+            var earningImage = 'earning.png'; // Change this to the correct image path
+            var earninggImage = 'earningg.png'; // Change this to the correct image path
+
+            // Set or update images in the earnings container without space
+            earningsContainer.innerHTML = `
+                <img class="earning-image" src="${earningImage}" alt="Earning Image">
+                <img class="earning-image" src="${earninggImage}" alt="Earningg Image">
+            `;
+        }
+
+        function goBack() {
+            // Redirect back to insights.html
+            window.location.href = 'insights.html';
+        }
+    </script>
+
+</body>
+
+</html>

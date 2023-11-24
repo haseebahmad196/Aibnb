@@ -1,0 +1,339 @@
+<!-- homepage.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb - Homepage</title>
+    <style>
+        /* Styles for the homepage */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #ff5a5f;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: welcomeAnimation 1.5s ease-in-out; /* Apply animation */
+        }
+
+        @keyframes welcomeAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .logout-btn {
+            float: right;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .host-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff5a5f;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1; /* Ensure the button is clickable */
+        }
+
+        .payment-btn {
+            display: block;
+            margin: 10px;
+            padding: 10px;
+            background-color: #ff5a5f;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Additional styles for the homepage */
+        #search-container {
+            position: relative;
+            width: 80%;
+            margin: 10px auto;
+            box-sizing: border-box;
+        }
+
+        #search-bar {
+            width: 100%;
+            padding: 10px;
+        }
+
+        #search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+            z-index: 2; /* Ensure suggestions are on top */
+        }
+
+        .search-suggestion {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .search-suggestion:last-child {
+            border-bottom: none;
+        }
+
+        #tree-house-image {
+            max-width: 100%; /* Ensure the image doesn't exceed its container */
+            height: auto; /* Maintain the aspect ratio of the image */
+            margin-top: 20px; /* Add space between the text and the image */
+        }
+
+        #back-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #auction-countdown {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #ff5a5f;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <button id="back-btn" onclick="goBack()">Back</button>
+        <h1>Welcome to Airbnb</h1>
+        <p>Your Next Adventure Awaits</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a onclick="showContent('tree-houses')">Tree Houses</a>
+        <a onclick="showContent('rooms')">Rooms</a>
+        <a onclick="showContent('camping')">Camping</a>
+        <a onclick="showContent('auction')">Auction</a>
+        <a class="logout-btn" href="Airbnb.html">Logout</a>
+    </nav>
+
+    <section>
+        <div id="search-container">
+            <input type="text" id="search-bar" placeholder="Search for your next adventure...">
+            <div id="search-suggestions"></div>
+        </div>
+        <button id="navigation-button" onclick="exploreCategory()">Explore</button>
+    </section>
+
+    <!-- Additional content for the homepage -->
+    <section>
+        <h2 id="content-title"></h2>
+        <div id="content">
+            <!-- Initial content -->
+            <!-- Add more content as needed -->
+        </div>
+    </section>
+
+    <!-- Payment/Reservation button -->
+    <button class="payment-btn" onclick="makePayment()">Make Reservation</button>
+
+    <!-- Switch to Host button -->
+    <button class="host-btn" onclick="switchToHost()">Switch to Host</button>
+
+    <!-- JavaScript for homepage functionality -->
+    <script>
+        function goBack() {
+            window.location.href = 'Airbnb.html';
+        }
+
+        function navigateToExplore() {
+            // Implement navigation logic as needed
+            // For example, you can redirect to the explore page or handle navigation within the same page.
+            alert("Navigating to Explore page");
+        }
+
+        function switchToHost() {
+            // Redirect to the host page
+            window.location.href = "host.html";
+        }
+
+        function showContent(contentType) {
+    var titleElement = document.getElementById('content-title');
+    var contentElement = document.getElementById('content');
+    var imageUrl;
+
+    // Set title based on content type
+    switch (contentType) {
+        case 'tree-houses':
+            titleElement.textContent = 'Tree Houses';
+            // Set image URL for Tree Houses
+            imageUrl = "TreeHouse.jpeg";
+            break;
+        case 'rooms':
+            titleElement.textContent = 'Rooms';
+            // Set image URL for Rooms
+            imageUrl = 'treeHouseeee.jpeg';
+            break;
+        case 'camping':
+            titleElement.textContent = 'Camping';
+            // Set image URL for Camping
+            imageUrl = 'one.jpeg';
+            break;
+        case 'auction':
+            // Redirect to the auction page
+            window.location.href = 'auction.html';
+            return; // Stop execution to prevent displaying content for 'auction' on this page
+        default:
+            titleElement.textContent = 'Recommended Stays';
+            break;
+    }
+
+    // Set or update image in the content section
+    contentElement.innerHTML = `<img id="tree-house-image" src="${imageUrl}" alt="${titleElement.textContent}">`;
+
+    // Additional content can be added or modified here based on the content type
+}
+
+
+        function makePayment() {
+            // Implement payment logic here
+            alert("Redirecting to payment page...");
+        }
+
+        // Get the search bar and search suggestions elements
+        var searchBar = document.getElementById('search-bar');
+        var searchSuggestions = document.getElementById('search-suggestions');
+
+        // Event listener for the search bar input
+        searchBar.addEventListener('input', function () {
+            // Get the search query
+            var query = searchBar.value.toLowerCase();
+
+            // Clear previous suggestions
+            searchSuggestions.innerHTML = '';
+
+            // Add suggestions based on the query
+            if (query.includes('t')) {
+                addSearchSuggestion('Tree Houses');
+            } 
+            if (query.includes('c')) {
+                addSearchSuggestion('Camping');
+            }
+            if (query.includes('r')) {
+                addSearchSuggestion('Rooms');
+            }
+            if (query.includes('a')) {
+                addSearchSuggestion('Auction');
+            }
+
+            // Show or hide suggestions based on the query
+            if (query.length > 0) {
+                showSearchSuggestions();
+            } else {
+                hideSearchSuggestions();
+            }
+        });
+
+        // Function to add a search suggestion to the suggestions list
+        function addSearchSuggestion(suggestion) {
+            var suggestionElement = document.createElement('div');
+            suggestionElement.textContent = suggestion;
+            suggestionElement.classList.add('search-suggestion');
+            suggestionElement.addEventListener('click', function () {
+                // Set the search bar value to the clicked suggestion
+                searchBar.value = suggestion;
+                // Clear the suggestions
+                hideSearchSuggestions();
+            });
+            searchSuggestions.appendChild(suggestionElement);
+        }
+
+        // Function to show search suggestions
+        function showSearchSuggestions() {
+            searchSuggestions.style.display = 'block';
+        }
+
+        // Function to hide search suggestions
+        function hideSearchSuggestions() {
+            searchSuggestions.style.display = 'none';
+        }
+
+        // Function to explore the selected category
+        function exploreCategory() {
+            var selectedCategory = searchBar.value.toLowerCase();
+            showContent(selectedCategory);
+        }
+
+        function makePayment() {
+            // Redirect to the reservation page
+            window.location.href = "reservation.html";
+        }
+
+        
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!-- reservation.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb - Make Reservation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        /* Styles for the reservation page */
+        body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #f4f4f4;
+    }
+
+    header {
+        background-color: #ff5a5f;
+        padding: 20px;
+        color: #fff;
+        text-align: center;
+        animation: welcomeAnimation 1.5s ease-in-out; /* Apply animation */
+    }
+
+    @keyframes welcomeAnimation {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+        .back-button {
+            position: absolute;
+            top: 20px; /* Adjust the top position as needed */
+            left: 20px; /* Adjust the left position as needed */
+            background-color: #fff;
+            color: #ff5a5f;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .reservation-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #ff5a5f;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <button class="back-button" onclick="goBack()">Back</button>
+        <h1>Make Reservation</h1>
+    </header>
+
+    <section>
+        <div class="reservation-container">
+            <label for="checkin">CHECK-IN</label>
+            <input type="text" id="checkin" placeholder="Select date" readonly>
+
+            <label for="checkout">CHECKOUT</label>
+            <input type="text" id="checkout" placeholder="Select date" readonly>
+
+            <label for="guests">GUESTS</label>
+            <input type="text" id="guests" placeholder="1 guest">
+
+            <button onclick="calculateTotal()">Request to Book</button>
+
+            <div id="totalPrice"></div>
+        </div>
+    </section>
+
+    
+
+    <!-- JavaScript for reservation functionality -->
+    <script>
+       // Initialize datepicker
+flatpickr("#checkin", {
+    dateFormat: "m/d/Y",
+    minDate: "today",
+    onChange: function (selectedDates, dateStr) {
+        // Update checkout date options
+        flatpickr("#checkout", {
+            dateFormat: "m/d/Y",
+            minDate: dateStr,
+        });
+    },
+});
+
+function calculateTotal() {
+    // Get selected dates
+    var checkinDate = document.getElementById("checkin").value;
+    var checkoutDate = document.getElementById("checkout").value;
+
+    // Get number of guests
+    var guests = parseInt(document.getElementById("guests").value) || 0;
+
+    // Get price per night (replace this with your actual price)
+    var pricePerNight = 100;
+
+    // Calculate the number of nights
+    var numberOfNights = calculateNumberOfNights(checkinDate, checkoutDate);
+
+    // Calculate total price
+    var totalPrice = calculateTotalPrice(numberOfNights, guests, pricePerNight);
+
+    // Display the total price
+    document.getElementById("totalPrice").innerHTML =
+        "Total Price: $" + totalPrice.toFixed(2);
+
+    // Store the total price in localStorage
+    localStorage.setItem("totalPrice", totalPrice);
+
+    // Redirect to the payment page
+    window.location.href = "payment.html";
+}
+
+function calculateNumberOfNights(checkinDate, checkoutDate) {
+    var checkin = new Date(checkinDate);
+    var checkout = new Date(checkoutDate);
+    var timeDiff = checkout - checkin;
+    return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+}
+
+function calculateTotalPrice(numberOfNights, guests, pricePerNight) {
+    return numberOfNights * guests * pricePerNight;
+}
+
+function goBack() {
+    window.location.href = "homepage.html";
+}
+
+    </script>
+
+</body>
+
+</html>

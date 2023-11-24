@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb - Auction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #ff5a5f;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: welcomeAnimation 1.5s ease-in-out;
+        }
+
+        @keyframes welcomeAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #back-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            width: auto;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #auction-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+
+        #auction-image1,
+        #auction-image2 {
+            max-width: 45%;
+            height: auto;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+
+        #bid-form {
+            max-width: 45%;
+            margin-left: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #ff5a5f;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #bid-results {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        #bid-winner,
+        #bid-amount1,
+        #bid-amount2,
+        #winning-bid,
+        #final-winner,
+        #countdown-timer {
+            margin: 5px 0;
+        }
+
+        #instant-booking {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            width: auto;
+            display: none;
+        }
+
+        /* Animation for winner */
+        .winner-animation {
+            animation: winnerAnimation 1s ease-in-out;
+        }
+
+        @keyframes winnerAnimation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* New animation for always changing text */
+        @keyframes changeTextAnimation {
+            0% {
+                color: #ff5a5f;
+            }
+            50% {
+                color: #5a5a5a;
+            }
+            100% {
+                color: #ff5a5f;
+            }
+        }
+
+        /* Apply the animation to the text */
+        #changing-text {
+            animation: changeTextAnimation 2s infinite;
+        }
+
+        /* New styles for the countdown timer */
+        #countdown-timer {
+            font-size: 20px;
+            font-weight: bold;
+            animation: countdownAnimation 15s linear forwards;
+        }
+
+        @keyframes countdownAnimation {
+            0% {
+                width: 100%;
+            }
+            100% {
+                width: 0;
+            }
+        }
+
+        /* New styles for the winning bid animation */
+        @keyframes winningBidAnimation {
+            0% {
+                color: #ff5a5f;
+                transform: scale(1);
+            }
+            50% {
+                color: #5a5a5a;
+                transform: scale(1.2);
+            }
+            100% {
+                color: #ff5a5f;
+                transform: scale(1);
+            }
+        }
+
+        /* Apply the animation to the winning bid */
+        #winning-bid {
+            animation: winningBidAnimation 2s infinite;
+        }
+
+        /* New styles for the final winner animation */
+        @keyframes finalWinnerAnimation {
+            0%, 100% {
+                color: #ff5a5f;
+                transform: scale(1);
+            }
+            50% {
+                color: #5a5a5a;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Apply the animation to the final winner */
+        #final-winner {
+            animation: finalWinnerAnimation 2s forwards;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <button id="back-btn" onclick="goBack()">Back</button>
+        <h1>Welcome to the Auction</h1>
+    </header>
+
+    <section>
+        <div id="auction-container">
+            <img id="auction-image1" src="bidhouse.PNG" alt="Auction House 1">
+            <div id="bid-form">
+                <!-- Move the p element here -->
+                <p id="changing-text">Place your bid on the desired property</p>
+                <label for="bid-amount">Your Bid:</label>
+                <input type="number" id="bid-amount" min="0" step="1">
+                <button onclick="placeBid()">Place Bid</button>
+            </div>
+        </div>
+
+        <!-- Display the countdown timer -->
+        <div id="countdown-timer"></div>
+
+        <div id="bid-results">
+            <h2>Bid Results</h2>
+            <p id="bid-winner">Winner: None</p>
+            <p id="bid-amount1">Bid for Recipient One: $0</p>
+            <p id="bid-amount2">Bid for Recipient Two: $0</p>
+            <!-- Apply the winning bid animation here -->
+            <p id="winning-bid">Winning Bid: $0</p>
+            <!-- Display the final winner with animation -->
+            <p id="final-winner"></p>
+            <!-- Instant Booking button -->
+            <button id="instant-booking" onclick="instantBooking()">Instant Booking</button>
+        </div>
+    </section>
+
+    <script>
+        function goBack() {
+            window.location.href = 'homepage.html';
+        }
+
+        var bidCount = 0;
+        var previousWinner = null;
+
+        function placeBid() {
+            var bidAmount = parseInt(document.getElementById('bid-amount').value);
+            var bidParticipant1 = Math.floor(Math.random() * 100) + 1;
+            var bidParticipant2 = Math.floor(Math.random() * 100) + 1;
+
+            updateBidResults(bidAmount, bidParticipant1, bidParticipant2);
+        }
+
+        function updateBidResults(bidAmount, bidParticipant1, bidParticipant2) {
+            var currentBid1 = parseInt(document.getElementById('bid-amount1').innerText.split('$')[1]);
+            var currentBid2 = parseInt(document.getElementById('bid-amount2').innerText.split('$')[1]);
+
+            currentBid1 += bidParticipant1;
+            currentBid2 += bidParticipant2;
+
+            document.getElementById('bid-amount1').innerText = 'Bid for Recipient One: $' + currentBid1;
+            document.getElementById('bid-amount2').innerText = 'Bid for Recipient Two: $' + currentBid2;
+
+            var winner;
+            if (currentBid1 > currentBid2) {
+                winner = 'Recipient One';
+            } else {
+                winner = 'Recipient Two';
+            }
+
+            var winningBid = Math.max(currentBid1, currentBid2);
+            document.getElementById('winning-bid').innerText = 'Winning Bid for ' + winner + ': $' + winningBid;
+
+            document.getElementById('bid-winner').innerText = 'Winner: ' + winner;
+
+            document.getElementById('bid-winner').classList.add('winner-animation');
+            setTimeout(() => {
+                document.getElementById('bid-winner').classList.remove('winner-animation');
+            }, 1000);
+
+            previousWinner = winner;
+            bidCount++;
+
+            if (bidCount === 3) {
+                displayCountdownTimer();
+            }
+        }
+
+        function displayCountdownTimer() {
+            var countdownTimer = document.getElementById('countdown-timer');
+            countdownTimer.innerHTML = 'Auction ending in <span id="countdown">15</span> seconds';
+            countdownTimer.style.animation = 'countdownAnimation 15s linear forwards';
+            startCountdown();
+        }
+
+        function startCountdown() {
+            var seconds = 15;
+            var countdown = document.getElementById('countdown');
+            var countdownInterval = setInterval(function () {
+                seconds--;
+                countdown.textContent = seconds;
+
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    var winner = document.getElementById('bid-winner').innerText.split(':')[1].trim();
+                    announceFinalWinner(winner);
+                }
+            }, 1000);
+        }
+
+        function announceFinalWinner(winner) {
+            // Display the final winner with animation
+            var finalWinnerElement = document.getElementById('final-winner');
+            finalWinnerElement.innerText = 'Final Winner: ' + winner;
+            finalWinnerElement.classList.add('finalWinnerAnimation');
+            
+            // Show Instant Booking button
+            var instantBookingButton = document.getElementById('instant-booking');
+            instantBookingButton.style.display = 'block';
+        }
+
+        function instantBooking() {
+            // Redirect to the reservation.html page for instant booking
+            window.location.href = 'reservation.html';
+        }
+    </script>
+
+</body>
+
+</html>
